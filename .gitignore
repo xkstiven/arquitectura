@@ -24,3 +24,17 @@ tb_unidadControl_isim_beh1.wdb
 *.xst
 procesador2_top.ngc
 *.stx
+*.log
+isim/pn_info
+*.c
+*.didat
+isim/precompiled.exe.sim/ieee/p_2592010699.nt64.obj
+*.obj
+isim/tb_procesador2_top_isim_beh.exe.sim/ISimEngine-DesignHierarchy.dbg
+*.dll
+isim/tb_procesador2_top_isim_beh.exe.sim/netId.dat
+*.exe
+*.vdb
+isim/tb_procesador2_top_isim_beh.exe.sim/tmp_save/_1
+*.ini
+*.wdb

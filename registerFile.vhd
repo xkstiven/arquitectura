@@ -22,7 +22,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity registerFile is
-    Port ( --clkFPGA : in  STD_LOGIC;
+    Port ( clkFPGA : in  STD_LOGIC;
            reset : in  STD_LOGIC;
            registerSource1 : in  STD_LOGIC_VECTOR (4 downto 0);
            registerSource2 : in  STD_LOGIC_VECTOR (4 downto 0);
@@ -47,19 +47,25 @@ architecture arqRegisterFile of registerFile is
 
 begin
 --,reset,registerSource1,registerSource2,registerDestination,writeEnable,dataToWrite
-	process(reset,registerSource1,registerSource2,registerDestination,writeEnable,dataToWrite)--clkFPGA)
+	process(reset,registerSource1,registerSource2,registerDestination,writeEnable,dataToWrite,clkFPGA)--clkFPGA)
 	begin
+		--if(rising_edge(clkFPGA))then
 			if(reset = '1')then
 				contentRegisterSource1 <= (others=>'0');
 				contentRegisterSource2 <= (others=>'0');
 				registers <= (others => x"00000000");
 			else
+			 --if(rising_edge(clkFPGA))then
 				contentRegisterSource1 <= registers(conv_integer(registerSource1));
 				contentRegisterSource2 <= registers(conv_integer(registerSource2));
-				if(writeEnable = '1' and registerDestination /= "00000")then
-					registers(conv_integer(registerDestination)) <= dataToWrite;
+				if (rising_edge(clkFPGA))then
+					if((writeEnable = '1') and (registerDestination /= "00000"))then
+						registers(conv_integer(registerDestination)) <= dataToWrite;
+					end if;
 				end if;
+			 --end if;
 			end if;
+		--end if;
 	end process;
 end arqRegisterFile;
 

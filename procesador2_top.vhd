@@ -53,7 +53,7 @@ component nPC
 end component;
 
 component registerFile
-    Port ( --clkFPGA : in  STD_LOGIC;
+    Port ( clkFPGA : in  STD_LOGIC;
            reset : in  STD_LOGIC;
            registerSource1 : in  STD_LOGIC_VECTOR (4 downto 0);
            registerSource2 : in  STD_LOGIC_VECTOR (4 downto 0);
@@ -107,7 +107,7 @@ unidadControl_map : unidadControl port map(
 );
 
 registerFile_map : registerFile port map(
-	reset, IMout(18 downto 14), IMout(4 downto 0), IMout(29 downto 25), wr, dtw,crs1,crs2
+	clk,reset, IMout(18 downto 14), IMout(4 downto 0), IMout(29 downto 25), wr, dtw,crs1,crs2
 );
 
 signExtensionUnit_map : signExtensionUnit port map(
