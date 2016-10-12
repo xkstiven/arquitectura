@@ -55,7 +55,6 @@ begin
 				contentRegisterSource2 <= (others=>'0');
 				registers <= (others => x"00000000");
 			else
-			 --if(rising_edge(clkFPGA))then
 				contentRegisterSource1 <= registers(conv_integer(registerSource1));
 				contentRegisterSource2 <= registers(conv_integer(registerSource2));
 				if (rising_edge(clkFPGA))then
@@ -63,7 +62,6 @@ begin
 						registers(conv_integer(registerDestination)) <= dataToWrite;
 					end if;
 				end if;
-			 --end if;
 			end if;
 		--end if;
 	end process;

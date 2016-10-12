@@ -32,7 +32,7 @@ end component;
 
 component instructionMemory
     Port ( 
-			  clk : in STD_LOGIC;
+			  --clk : in STD_LOGIC;
 			  address : in  STD_LOGIC_VECTOR (31 downto 0);
            reset : in  STD_LOGIC;
            outInstruction : out  STD_LOGIC_VECTOR (31 downto 0));
@@ -99,7 +99,7 @@ PC_map : PC port map(
 );
 
 instrctionMemory_map : instructionMemory port map(
-	clk, pcOUT, reset, IMout
+	 pcOUT, reset, IMout
 );
 
 unidadControl_map : unidadControl port map(

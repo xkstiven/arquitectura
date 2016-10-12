@@ -21,7 +21,7 @@ ARCHITECTURE behavior OF tb_procesador2_top IS
 
    --Inputs
    signal clk : std_logic := '0';
-   signal reset : std_logic := '1';
+   signal reset : std_logic := '0';
    signal sum1 : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
@@ -54,7 +54,11 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-      wait for 10 ns;	
+      wait for 10 ns;
+		
+		reset <= '1';
+		
+		wait for 10 ns;
 		
 		reset <= '0';
 		sum1 <= "00000000000000000000000000000001";

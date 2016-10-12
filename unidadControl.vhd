@@ -12,8 +12,11 @@ end unidadControl;
 architecture arqUnidadControl of unidadControl is
 
 begin
+	
 	process(op,op3)
+	
 	begin
+		ALUOP <= "000000";
 					if(op = "10")then				
 						case op3 is
 							when "000000" => -- ADD

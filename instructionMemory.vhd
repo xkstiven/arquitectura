@@ -5,7 +5,7 @@ use std.textio.all;
 
 entity instructionMemory is
     Port ( 
-			  clk : in STD_LOGIC;
+			  --clk : in STD_LOGIC;
 			  address : in  STD_LOGIC_VECTOR (31 downto 0);
            reset : in  STD_LOGIC;
            outInstruction : out  STD_LOGIC_VECTOR (31 downto 0));
@@ -32,15 +32,15 @@ architecture arqInstructionMemory of instructionMemory is
 	signal instructions : rom_type := InitRomFromFile("instrucciones.txt");
 	
 begin
-	process(reset,address, instructions,clk)
+	process(reset,address, instructions)--clk
 	begin
-		if(rising_edge(clk))then
+		--if(rising_edge(clk))then
 			if(reset = '1')then
 				outInstruction <= (others=>'0');
 			else
 				outInstruction <= instructions(conv_integer(address(5 downto 0)));
 			end if;
-		end if;
+		--end if;
 	end process;
 end arqInstructionMemory;
 
