@@ -24,9 +24,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity registerFile is
     Port ( clkFPGA : in  STD_LOGIC;
            reset : in  STD_LOGIC;
-           registerSource1 : in  STD_LOGIC_VECTOR (4 downto 0);
-           registerSource2 : in  STD_LOGIC_VECTOR (4 downto 0);
-           registerDestination : in  STD_LOGIC_VECTOR (4 downto 0);
+           registerSource1 : in  STD_LOGIC_VECTOR (5 downto 0);
+           registerSource2 : in  STD_LOGIC_VECTOR (5 downto 0);
+           registerDestination : in  STD_LOGIC_VECTOR (5 downto 0);
            writeEnable : in  STD_LOGIC;
 			  dataToWrite : in STD_LOGIC_VECTOR (31 downto 0);
            contentRegisterSource1 : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -35,8 +35,10 @@ end registerFile;
 
 architecture arqRegisterFile of registerFile is
 
-	type ram_type is array (0 to 31) of std_logic_vector (31 downto 0);   --(others => x"00000000")
+	type ram_type is array (0 to 39) of std_logic_vector (31 downto 0);   --(others => x"00000000")
 	signal registers : ram_type :=(x"00000000",x"00000000",x"00000000",x"00000000",
+											 x"00000000",x"00000000",x"00000000",x"00000000",
+											 x"00000000",x"00000000",x"00000000",x"00000000",
 											 x"00000000",x"00000000",x"00000000",x"00000000",
 											 x"00000000",x"00000000",x"00000000",x"00000000",
 											 x"00000000",x"00000000",x"00000000",x"00000000",
