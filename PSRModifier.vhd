@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity PSRModifier is
     Port ( Crs1 : in  STD_LOGIC_VECTOR (31 downto 0);
+			  --reset : in std_logic;
            operand2 : in  STD_LOGIC_vector (31 downto 0);
            AluOp : in  STD_LOGIC_vector (5 downto 0);
            AluResult : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -11,34 +12,104 @@ end PSRModifier;
 
 architecture Behavioral of PSRModifier is
 
-	impure function ZeroBitSet(AluResult : STD_LOGIC_VECTOR) return STD_LOGIC is
-	begin
-		if(AluResult = x"00000000")then
-			return '1';
-		else
-			return '0';
-		end if;
-	end function;
 
 begin
 
-	process(CRs1,Operand2,AluOp,AluResult)
+	process(CRs1,Operand2,AluOp,AluResult)--reset
 	begin					-- Logical Instructions
 							-- Andcc, Nandcc, Orcc, Norcc, Xorcc, Xnorcc
-		if((AluOp = "010001") or (AluOP = "010101") or (AluOP = "010010" )or (AluOP = "010110") or (AluOP = "010011") or (AluOP = "010111")) then
-			NZVC(1 downto 0) <= "00"; -- V and C
-							-- Addcc, Addxcc
-		elsif((AluOp = "010000") or (AluOp = "011000"))then -- Add instruction
-			NZVC(1) <= (CRs1(31) and Operand2(31) and (not AluResult(31))) or ((not CRs1(31)) and (not Operand2(31)) and AluResult(31)); -- V
-			NZVC(0) <= (CRs1(31) and Operand2(31)) or ((not AluResult(31)) and (CRs1(31) or Operand2(31))); -- C
-							-- Subcc, Subxcc
-		elsif((AluOp = "010100") or (AluOP = "011100"))then -- Sub instructions
-			NZVC(1) <= (CRs1(31) and (not Operand2(31)) and (not AluResult(31))) or ((not CRs1(31)) and Operand2(31) and AluResult(31)); -- V
-			NZVC(0) <= ((not CRs1(31)) and Operand2(31)) or (AluResult(31) and ((not CRs1(31)) or Operand2(31))); -- C
-		end if;
-		NZVC(3) <= AluResult(31); -- N
-		NZVC(2) <= ZeroBitSet(AluResult); -- Z
-	end process;
+		--if(reset = '1')then
+		--		NZVC <= (others=>'0');
+		--else
+			case AluOp is
+		when "010000" =>--ADDCC
+			NZVC(3) <= aluResult(31);--n
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';--z
+			else
+				NZVC(2) <= '0';--z
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		when "011000" => --ADDxCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		
+		when "010100" => --subCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
 
+		when "011100" => --subxCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		when "010001" => --andCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+			
+		when "010010" => --orCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		when "010110" => --ornCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		when "010011" => --xorCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		when "010111" => --xnorCC
+			NZVC(3) <= aluResult(31);
+			if(aluResult = X"00000000") then
+				NZVC(2) <= '1';
+			else
+				NZVC(2) <= '0';
+			end if;
+			NZVC(1) <= (Crs1(31) and operand2(31) and (not aluResult(31))) or ((Crs1(31) ) and (not operand2(31)) and aluResult(31));--v
+			NZVC(0) <= (Crs1(31) and operand2(31)) or ((not aluResult(31)) and (Crs1(31) or operand2(31)));--c
+		when others =>
+			NZVC <= "0000";
+	end case;
+		--end if;
+	end process;
 
 end Behavioral;

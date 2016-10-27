@@ -78,7 +78,7 @@ component ALU
     Port ( operando1 : in  STD_LOGIC_VECTOR (31 downto 0);
            operando2 : in  STD_LOGIC_VECTOR (31 downto 0);
            aluOP : in  STD_LOGIC_VECTOR (5 downto 0);
-           --carry : in  STD_LOGIC;
+           carry : in  STD_LOGIC;
            AluResult : out  STD_LOGIC_VECTOR (31 downto 0));
 end component;
 
@@ -97,6 +97,7 @@ end component;
 
 component PSRModifier
     Port ( Crs1 : in  STD_LOGIC_VECTOR (31 downto 0);
+			  --reset : in std_logic;
            operand2 : in  STD_LOGIC_vector (31 downto 0);
            AluOp : in  STD_LOGIC_vector (5 downto 0);
            AluResult : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -126,7 +127,7 @@ PSR_map: PSR port map(
 );
 
 PSRModifier_map : PSRModifier port map(
-	crs1, muxout, UCout, dtw, PSRMout
+	crs1,muxout, UCout, dtw, PSRMout
 );
 
 MA : muxALU port map(
@@ -138,7 +139,7 @@ SEU : signExtensionUnit port map(
 );
 
 ALU_map : ALU port map(
-	crs1,muxout,UCout, dtw
+	crs1,muxout,UCout, car,dtw
 );
 
 UC : unidadControl port map(
