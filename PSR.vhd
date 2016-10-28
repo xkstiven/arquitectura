@@ -14,8 +14,8 @@ entity PSR is
     Port ( CLK : in  STD_LOGIC;
            Reset : in  STD_LOGIC;
            NZVC : in  STD_LOGIC_VECTOR (3 downto 0);
-           nCWP : in  STD_LOGIC_VECTOR (1 downto 0);
-           CWP : out  STD_LOGIC_VECTOR (1 downto 0);
+           nCWP : in  STD_LOGic;
+           CWP : out  STD_LOGIC;
            Carry : out  STD_LOGIC
           -- icc : out  STD_LOGIC_VECTOR (3 downto 0)
 			 );
@@ -31,7 +31,7 @@ begin
 	begin
 		if(Reset = '1') then
 			Carry <= '0'; -- Default value
-			CWP <= "00"; -- Windows 0 ; Default value
+			CWP <= '0'; -- Windows 0 ; Default value
 			--ICC <= "0000"; -- Default value
 		else
 			if(rising_edge(CLK)) then

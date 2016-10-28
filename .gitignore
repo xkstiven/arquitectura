@@ -39,3 +39,7 @@ isim/tb_procesador2_top_isim_beh.exe.sim/tmp_save/_1
 *.ini
 *.wdb
 *.ngc
+*.dbg
+isim/tb_procesador4_isim_beh.exe.sim/netId.dat
+isim/tb_procesador4_isim_beh.exe.sim/tmp_save/_1
+*.vhi

@@ -35,11 +35,11 @@ entity windowManager is
     Port ( --clk : in STD_LOGIC;
 			  op : in STD_LOGIC_VECTOR (1 downto 0);
 			  op3 : in STD_LOGIC_VECTOR (5 downto 0);
-			  cwp : in STD_LOGIC_VECTOR (1 downto 0);
+			  cwp : in STD_LOGIC;
 			  registerSource1 : in  STD_LOGIC_VECTOR (4 downto 0);
            registerSource2 : in  STD_LOGIC_VECTOR (4 downto 0);
            registerDestination : in  STD_LOGIC_VECTOR (4 downto 0);
-			  ncwp : out STD_LOGIC_VECTOR (1 downto 0):="00";
+			  ncwp : out STD_LOGIC:='0';
            newRegisterSource1 : out  STD_LOGIC_VECTOR (5 downto 0);
            newRegisterSource2 : out  STD_LOGIC_VECTOR (5 downto 0);
            newRegisterDestination : out  STD_LOGIC_VECTOR (5 downto 0);
@@ -50,18 +50,18 @@ architecture Behavioral of windowManager is
 	signal registerSource1Integer,registerSource2Integer,registerDestinationInteger: integer range 0 to 39:=0;
 	signal auxRegistroO7 : std_logic_vector(6 downto 0);
 begin	
-	auxRegistroO7 <= cwp * "10000";--OJO en lugar de "00" debe ir cwp
-	registroO7 <= auxRegistroO7(5 downto 0) + "001111";
+	--auxRegistroO7 <= cwp * "10000";--OJO en lugar de "00" debe ir cwp
+	--registroO7 <= auxRegistroO7(5 downto 0) + "001111";
 	process(registerSource1,registerSource2,registerDestination,cwp,op,op3)
 	begin
 		--if(rising_edge(clk))then
 			if(op = "10" and op3 = "111100")then--SAVE
-				ncwp <= conv_std_logic_vector(conv_integer(cwp) - 1,2);
+				ncwp <= '0';
 			else
 				if(op = "10" and op3 = "111101")then--RESTORE
-					ncwp <= conv_std_logic_vector(conv_integer(cwp) + 1,2);
-					--else
-						--ncwp <= cwp;
+					ncwp <= '1';
+				else
+					ncwp <= cwp;
 				end if;
 			end if;
 		

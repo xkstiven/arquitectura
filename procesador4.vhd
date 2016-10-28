@@ -43,11 +43,11 @@ component windowManager
     Port ( --clk : in STD_LOGIC;
 			  op : in STD_LOGIC_VECTOR (1 downto 0);
 			  op3 : in STD_LOGIC_VECTOR (5 downto 0);
-			  cwp : in STD_LOGIC_VECTOR (1 downto 0);
+			  cwp : in STD_LOGIC;
 			  registerSource1 : in  STD_LOGIC_VECTOR (4 downto 0);
            registerSource2 : in  STD_LOGIC_VECTOR (4 downto 0);
            registerDestination : in  STD_LOGIC_VECTOR (4 downto 0);
-			  ncwp : out STD_LOGIC_VECTOR (1 downto 0):="00";
+			  ncwp : out STD_LOGIC;
            newRegisterSource1 : out  STD_LOGIC_VECTOR (5 downto 0);
            newRegisterSource2 : out  STD_LOGIC_VECTOR (5 downto 0);
            newRegisterDestination : out  STD_LOGIC_VECTOR (5 downto 0);
@@ -108,15 +108,15 @@ component PSR
     Port ( CLK : in  STD_LOGIC;
            Reset : in  STD_LOGIC;
            NZVC : in  STD_LOGIC_VECTOR (3 downto 0);
-           nCWP : in  STD_LOGIC_VECTOR (1 downto 0);
-           CWP : out  STD_LOGIC_VECTOR (1 downto 0);
+           nCWP : in  STD_LOGIC;
+           CWP : out  STD_LOGIC;
            Carry : out  STD_LOGIC
           -- icc : out  STD_LOGIC_VECTOR (3 downto 0)
 			 );
 end component;
 
 signal nPcOut, adderOut , PCout, IMout,dtw,crs1,crs2,muxout,seuout: std_logic_vector (31 downto 0);
-signal psrOut, WMncwp :std_logic_vector(1 downto 0);
+signal psrOut, WMncwp :std_logic;
 signal nrs1,nrs2, nrd,op7,UCout: std_logic_vector(5 downto 0);
 signal wr,car: std_logic;
 signal PSRMout : std_logic_vector(3 downto 0);

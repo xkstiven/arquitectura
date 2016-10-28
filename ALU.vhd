@@ -83,6 +83,11 @@ begin
 				AluResult <= not(operando1 xor operando2);
 			when "010111" => --xnorCC
 				AluResult <= not(operando1 xor operando2);
+			when "111100" => --save 
+				AluResult <= operando1 + operando2;
+			when "111101" => --restore
+				AluResult <= operando1 + operando2;
+			
 			when others =>
 				AluResult <= x"00000000"; --operacion no configurada
 		end case;

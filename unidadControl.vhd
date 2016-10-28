@@ -43,6 +43,10 @@ begin
 							when "000111" => -- xnor
 								wrEnRF <= '1';
 								ALUOP <= "000111";
+							when "111100" => -- save
+								ALUOP <= "111100";
+							when "111101" => -- restore
+								ALUOP <= "111101";
 								
 							when others => -- Implementar demas instrucciones
 								wrEnRF <= '0';
