@@ -14,10 +14,11 @@ entity PSR is
     Port ( CLK : in  STD_LOGIC;
            Reset : in  STD_LOGIC;
            NZVC : in  STD_LOGIC_VECTOR (3 downto 0);
-           nCWP : in  STD_LOGic;
+           ICC:out std_logic_vector (3 downto 0);
+			  nCWP : in  STD_LOGic;
            CWP : out  STD_LOGIC;
            Carry : out  STD_LOGIC
-          -- icc : out  STD_LOGIC_VECTOR (3 downto 0)
+          
 			 );
 end PSR;
 
@@ -32,12 +33,12 @@ begin
 		if(Reset = '1') then
 			Carry <= '0'; -- Default value
 			CWP <= '0'; -- Windows 0 ; Default value
-			--ICC <= "0000"; -- Default value
+			ICC <= "0000"; -- Default value
 		else
 			if(rising_edge(CLK)) then
 				Carry <= NZVC(0); -- C bit
 				CWP <= nCWP; -- CWP bit
-				--ICC <= NZVC;  NZVC
+				ICC <= NZVC;  --NZVC
 			end if;
 		end if;
 	end process;

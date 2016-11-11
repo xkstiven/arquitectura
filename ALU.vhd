@@ -87,6 +87,8 @@ begin
 				AluResult <= operando1 + operando2;
 			when "111101" => --restore
 				AluResult <= operando1 + operando2;
+			when "111000" =>
+				AluResult <= operando1 + operando2;
 			
 			when others =>
 				AluResult <= x"00000000"; --operacion no configurada

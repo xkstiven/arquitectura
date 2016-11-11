@@ -31,34 +31,29 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity dataMemory is
-    Port ( clk : in  STD_LOGIC;
-			  enableMem : in  STD_LOGIC;
-			  reset : in STD_LOGIC;
-			  cRD : in  STD_LOGIC_VECTOR (31 downto 0);
-           address : in STD_LOGIC_VECTOR (31 downto 0);				
-           wrEnMem : in  STD_LOGIC;
-           datoMem : out  STD_LOGIC_VECTOR (31 downto 0));
+    Port ( 
+			  WriteEnable : in  STD_LOGIC;
+           Rst : in  STD_LOGIC;
+           Data : in  STD_LOGIC_VECTOR (31 downto 0);
+           Address : in  STD_LOGIC_VECTOR (4 downto 0);
+           DataOut : out  STD_LOGIC_VECTOR (31 downto 0));
 end dataMemory;
 
 architecture arqDataMemory of dataMemory is
-	type ram_type is array (0 to 63) of std_logic_vector (31 downto 0);
-	signal ramMemory : ram_type:=(others => x"00000000");
+
+	type ram_type is array(0 to 32) of std_logic_vector (31 downto 0);
+	signal Data_Memory : ram_type := (others => x"00000000");
+
 begin
-	--reset,cRD,address,wrEnMem)
-	process(clk)
+	process(WriteEnable,Rst,Data,Address)
 	begin
-		if(rising_edge(clk))then
-			if(enableMem = '1') then
-				if(reset = '1')then
-					datoMem <= (others => '0');
-					ramMemory <= (others => x"00000000");
-				else
-					if(wrEnMem = '0')then
-						datoMem <= ramMemory(conv_integer(address(5 downto 0)));
-					else
-						ramMemory(conv_integer(address(5 downto 0))) <= cRD;
-					end if;
-				end if;
+		if(Rst = '1')then
+			Dataout <= (others =>'0');
+		else
+			if(WriteEnable = '1')then
+				Data_Memory(conv_integer(Address)) <= Data;
+			else
+				DataOut <= Data_Memory(conv_integer(Address));
 			end if;
 		end if;
 	end process;

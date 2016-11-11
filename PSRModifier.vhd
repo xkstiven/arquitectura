@@ -3,7 +3,6 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity PSRModifier is
     Port ( Crs1 : in  STD_LOGIC_VECTOR (31 downto 0);
-			  --reset : in std_logic;
            operand2 : in  STD_LOGIC_vector (31 downto 0);
            AluOp : in  STD_LOGIC_vector (5 downto 0);
            AluResult : in  STD_LOGIC_VECTOR (31 downto 0);
