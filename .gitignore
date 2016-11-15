@@ -43,3 +43,10 @@ isim/tb_procesador2_top_isim_beh.exe.sim/tmp_save/_1
 isim/tb_procesador4_isim_beh.exe.sim/netId.dat
 isim/tb_procesador4_isim_beh.exe.sim/tmp_save/_1
 *.vhi
+*.dat
+*.sym
+isim/tb_procesador6_isim_beh.exe.sim/tmp_save/_1
+*.projectmgr
+procesador6/isim/Processor4_TB_isim_beh.exe.sim/tmp_save/_1
+procesador6/isim/pn_info
+procesador6/isim/tb_procesador6_isim_beh.exe.sim/tmp_save/_1

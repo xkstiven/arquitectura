@@ -30,6 +30,7 @@ entity registerFile is
            writeEnable : in  STD_LOGIC;
 			  dataToWrite : in STD_LOGIC_VECTOR (31 downto 0);
            contentRegisterSource1 : out  STD_LOGIC_VECTOR (31 downto 0);
+			  contentRegisterDestination : out  STD_LOGIC_VECTOR (31 downto 0);
            contentRegisterSource2 : out  STD_LOGIC_VECTOR (31 downto 0));
 end registerFile;
 
@@ -59,6 +60,7 @@ begin
 			else
 				contentRegisterSource1 <= registers(conv_integer(registerSource1));
 				contentRegisterSource2 <= registers(conv_integer(registerSource2));
+				contentRegisterDestination <= registers(conv_integer(registerDestination));
 				if (rising_edge(clkFPGA))then
 					if((writeEnable = '1') and (registerDestination /= "00000"))then
 						registers(conv_integer(registerDestination)) <= dataToWrite;

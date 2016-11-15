@@ -44,16 +44,18 @@ begin
 
 process(PcSource,PcDisp30,PcDisp22,Pc,AluResult)
 begin
-
-		if(PcSource = "00")then -- CALL and LinkInstruction
+	case PcSource is
+		when "00" => -- CALL and LinkInstruction
 			OutMux <= PcDisp30;
-		elsif(PcSource = "01")then -- Saltos
+		when "01" =>-- Saltos
 			OutMux <= PcDisp22;
-		elsif(PcSource = "10")then -- PC
+		when "10"=> -- PC
 			OutMux <= Pc;
-		elsif(PcSource = "11")then	-- AluResult
+		when "11" =>	-- AluResult
 			OutMux <= AluResult;
-		end if;
+		when others =>
+			OutMux <= Pc;
+		end case;
 		
 end process;
 
