@@ -19,7 +19,7 @@ architecture Behavioral of Adder is
 begin
 	process (data)
 		begin
-			data_out<=data+constante;
+			data_out<=data-constante;
 	end process;
 
 end Behavioral;
